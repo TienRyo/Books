@@ -14,12 +14,11 @@ var app = express();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
+var port = process.env.POST || 8000;
 
 bookRouter = require('./Router/bookRouter')(connection);
 
-var port = process.env.POST || 8000;
-
-app.use('/api', bookRouter);
+app.use('/', bookRouter);
 
 app.use(function (req, res) {
     res.setHeader('Content-Type', 'text/plain');
@@ -27,7 +26,7 @@ app.use(function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.send('my books');
+    res.send('books management');
 });
 
 app.listen(port, function () {
